@@ -1,0 +1,23 @@
+// ************** Session Nonce  ***************
+
+    public function get_nonce () {
+        $nonce=hash("md5",rand().time().rand());
+        $_SESSION['nonce']=$nonce;
+    }
+
+
+    public function save_nonce () {
+        $nonce=$_SESSION['nonce'];
+        echo '<input type="hidden" name="nonce" value="'.$nonce.'"/>';
+    }
+
+    public function check_nonce () {
+        $post_nonce=$_POST['nonce'];
+        $session_nonce=$_SESSION['nonce'];
+        if($post_nonce==$session_nonce)
+        {}else{?>
+            <script>bootbox.alert('Form Submission is not authorized. Please reneter the data again .....');</script>
+            <script>window.history.back()</script>
+        <?
+        }
+    }
